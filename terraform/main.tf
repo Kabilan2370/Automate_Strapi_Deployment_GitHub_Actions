@@ -54,7 +54,7 @@ resource "aws_security_group" "strapi_sg" {
 resource "aws_instance" "strapi" {
   ami                    = var.ami_id
   instance_type          = var.instance_type
-  subnet_id              = data.aws_subnets.default.ids[0]
+  subnet_id              = data.aws_subnet.default.ids[0]
   vpc_security_group_ids = [aws_security_group.strapi_sg.id]
   key_name               = var.key_name
 
@@ -68,9 +68,8 @@ resource "aws_instance" "strapi" {
   }
 }
 
-#############################################
+
 # Output EC2 Public IP
-#############################################
 output "ec2_public_ip" {
   value = aws_instance.strapi.public_ip
 }

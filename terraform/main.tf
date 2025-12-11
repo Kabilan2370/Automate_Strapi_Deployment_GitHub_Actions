@@ -51,6 +51,7 @@ resource "aws_security_group" "strapi_sg" {
   }
 }
 
+
 # EC2 Instance
 resource "aws_instance" "strapi" {
   ami                    = var.ami_id

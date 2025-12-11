@@ -1,7 +1,16 @@
 
 # Get Default VPC and Subnets
 # Get default VPC
-data "aws_default_vpc" "default" {}
+data "aws_vpcs" "default" {
+  filter {
+    name   = "isDefault"
+    values = ["true"]
+  }
+}
+
+locals {
+  default_vpc_id = data.aws_vpcs.default.ids[0]
+}
 
 # Get default subnets
 data "aws_subnets" "default" {

@@ -1,0 +1,51 @@
+name: CD - Terraform (manual)
+
+on:
+  workflow_dispatch:
+    inputs:
+      image_repo:
+        description: 'Image repository (e.g. user/strapi OR 111111111111.dkr.ecr.us-east-1.amazonaws.com/strapi)'
+        required: true
+        default: 'your-docker-repo/strapi'
+      image_tag:
+        description: 'Image tag to deploy (e.g. commit short SHA)'
+        required: true
+        default: 'latest'
+      auto_approve:
+        description: 'Auto approve terraform apply?'
+        required: true
+        default: 'false'
+
+jobs:
+  terraform:
+    runs-on: ubuntu-latest
+    environment: production
+    steps:
+      - name: Checkout repo
+        uses: actions/checkout@v4
+
+      - name: Set up Terraform
+        uses: hashicorp/setup-terraform@v2
+
+      - name: Configure AWS credentials
+        uses: aws-actions/configure-aws-credentials@v2
+        with:
+          aws-access-key-id: ${{ secrets.AWS_ACCESS_KEY_ID }}
+          aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+          aws-region: ${{ secrets.AWS_REGION }}
+
+      - name: Terraform Init
+        run: terraform -chdir=terraform init -input=false
+
+      - name: Terraform Plan
+        run: terraform -chdir=terraform plan -input=false -var="image_repo=${{ github.event.inputs.image_repo }}" -var="image_tag=${{ github.event.inputs.image_tag }}"
+
+      - name: Terraform Apply
+        if: ${{ github.event.inputs.auto_approve == 'true' }}
+        run: terraform -chdir=terraform apply -auto-approve -input=false -var="image_repo=${{ github.event.inputs.image_repo }}" -var="image_tag=${{ github.event.inputs.image_tag }}"
+
+      - name: Terraform Apply (manual approval)
+        if: ${{ github.event.inputs.auto_approve != 'true' }}
+        run: |
+          echo "Now running terraform apply (interactive). Use -auto-approve=true if you want no prompt."
+          terraform -chdir=terraform apply -input=false -var="image_repo=${{ github.event.inputs.image_repo }}" -var="image_tag=${{ github.event.inputs.image_tag }}"

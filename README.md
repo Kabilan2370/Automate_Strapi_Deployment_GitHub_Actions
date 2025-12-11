@@ -16,15 +16,15 @@
     │
     ├── .github/
     │   └── workflows/
-    │       ├── ci.yml          ← CI: Build & push Docker image
-    │       └── terraform.yml   ← CD: Manual Terraform apply
+    │       ├── ci.yml          # CI: Build & push Docker image
+    │       └── terraform.yml   # CD: Manual Terraform apply
     │
-    └── terraform/              ← All Terraform code
+    └── terraform/              # All Terraform code
         ├── main.tf
         ├── variables.tf
         ├── terraform.tfvars
         ├── outputs.tf
-        ├── user_data.tpl       ← EC2 startup script (install Docker + run Strapi)
+        ├── user_data.tpl       # EC2 startup script (install Docker + run Strapi)
 
 What Is the Task Concept?
 

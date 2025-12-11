@@ -40,7 +40,7 @@ resource "aws_instance" "strapi" {
   ami                    = var.ami_id
   instance_type          = var.instance_type
   subnet_id              = data.aws_subnets.default.ids[0]
-  vpc_security_group_ids = [data.aws_security_groups.strapi_sg.id]
+  vpc_security_group_ids = [data.aws_security_groups.strapi_sg.id[0]]
   key_name               = var.key_name
 
   user_data = templatefile("${path.module}/user_data.tpl", {

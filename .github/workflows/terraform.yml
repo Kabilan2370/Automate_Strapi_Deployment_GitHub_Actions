@@ -3,12 +3,14 @@ name: CD - Terraform (manual)
 on:
   workflow_dispatch:
     inputs:
+    
       image_repo:
-        description: 'Image repository (e.g. user/strapi OR 111111111111.dkr.ecr.us-east-1.amazonaws.com/strapi)'
+        description: 'Image repository.dkr.ecr.us-east-1.amazonaws.com/strapi'
         required: true
         default: 'your-docker-repo/strapi'
+        
       image_tag:
-        description: 'Image tag to deploy (e.g. commit short SHA)'
+        description: 'Image tag to deploy'
         required: true
         default: 'latest'
       auto_approve:

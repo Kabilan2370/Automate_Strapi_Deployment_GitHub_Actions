@@ -23,7 +23,7 @@ resource "aws_subnet" "public" {
 resource "aws_security_group" "strapi_sg" {
   name        = "strapi-sg"
   description = "Allow Strapi and SSH"
-  vpc_id      = data.aws_default_vpc.default.id
+  vpc_id      = data.default_vpc_id.default.id
 
   ingress {
     description = "Allow Strapi"

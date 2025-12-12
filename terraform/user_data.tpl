@@ -30,7 +30,7 @@ unzip awscliv2.zip
 sudo ./aws/install
 
 aws ecr get-login-password --region $REGION | \
-docker login --username AWS --password-stdin ${ACCOUNT_ID}.dkr.ecr.${AWS_REGION}.amazonaws.com
+docker login --username AWS --password-stdin ${aws_account_id}.dkr.ecr.${aws_region}.amazonaws.com
 
 # If your image is in ECR and requires login, prefer an IAM instance role.
 # Optional: add aws ecr get-login-password | docker login ... here if you must.
@@ -45,5 +45,6 @@ docker run -d --name strapi \
   -e DATABASE_CLIENT=postgres \
   -v /var/lib/strapi:/srv/app/data \
   $IMAGE
+
 
 

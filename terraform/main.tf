@@ -35,7 +35,7 @@ data "aws_security_groups" "strapi_sg" {
 
 # iam role
 resource "aws_iam_role" "ecr-per-role" {
-  name = "strapi-ec2-role"
+  name = "ecr-permission"
 
   assume_role_policy = jsonencode({
     Version = "2012-10-17"

@@ -1,8 +1,8 @@
 name: CI - Build and Push the Strapi Image into AWS ECR
 
-on:
-  push:
-    branches: [ "main" ]
+# on:
+#   push:
+#     branches: [ "main" ]
 
 jobs:
   build-and-push:
@@ -65,6 +65,7 @@ jobs:
               "image_tag": "${{ steps.set-tag.outputs.IMAGE_TAG }}",
               "auto_approve": "true"
             }
+
 
 
 

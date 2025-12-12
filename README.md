@@ -23,7 +23,6 @@
         ├── main.tf
         ├── variables.tf
         ├── terraform.tfvars
-        ├── outputs.tf
         ├── user_data.tpl       # EC2 startup script (install Docker + run Strapi)
 
 What Is the Task Concept?

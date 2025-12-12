@@ -61,10 +61,11 @@ jobs:
           token: ${{ secrets.TOKEN_GITHUB }}
           inputs: |
             {
-              "image_repo": "301782007642.dkr.ecr.eu-north-1.amazonaws.com/strapi",
+              "image_repo": "339713165486.dkr.ecr.us-east-2.amazonaws.com/strapi",
               "image_tag": "${{ steps.set-tag.outputs.IMAGE_TAG }}",
               "auto_approve": "true"
             }
+
 
 
 

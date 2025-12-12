@@ -87,6 +87,7 @@ resource "aws_instance" "strapi" {
     image_repo = var.image_repo
     image_tag  = var.image_tag
     aws_region = var.aws_region
+    aws_account_id = var.aws_account_id
   })
 
   tags = {

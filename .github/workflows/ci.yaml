@@ -1,8 +1,8 @@
 name: CI - Build and Push the Strapi Image into AWS ECR
 
-# on:
-#   push:
-#     branches: [ "main" ]
+on:
+  push:
+    branches: [ "main" ]
 
 jobs:
   build-and-push:
@@ -53,6 +53,7 @@ jobs:
           echo "==== CI FINISHED ===="
           echo "IMAGE_REPO: ${{ steps.build-and-push.outputs.IMAGE_REPO }}"
           echo "IMAGE_TAG:  ${{ steps.set-tag.outputs.IMAGE_TAG }}"
+
 
 
 

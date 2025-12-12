@@ -22,17 +22,21 @@ apt-get install -y docker-ce docker-ce-cli containerd.io
 usermod -aG docker ubuntu
 
 IMAGE="${image_repo}:${image_tag}"
+AWS_REGION="${aws_region}"
+ACCOUNT_ID="${aws_account_id}"
 
-ACCOUNT_ID="$(aws sts get-caller-identity --query Account --output text)"
-REGION="$(curl -s http://169.254.169.254/latest/meta-data/placement/region)"
+curl "https://awscli.amazonaws.com/awscli-exe-linux-x86_64.zip" -o "awscliv2.zip"
+unzip awscliv2.zip
+sudo ./aws/install
 
 aws ecr get-login-password --region $REGION | \
-docker login --username AWS --password-stdin ${ACCOUNT_ID}.dkr.ecr.${REGION}.amazonaws.com
+docker login --username AWS --password-stdin ${ACCOUNT_ID}.dkr.ecr.${AWS_REGION}.amazonaws.com
 
 # If your image is in ECR and requires login, prefer an IAM instance role.
 # Optional: add aws ecr get-login-password | docker login ... here if you must.
 
 docker pull $IMAGE || true
+
 # Stop previous container (if exists) then run
 docker rm -f strapi || true
 docker run -d --name strapi \
@@ -41,4 +45,5 @@ docker run -d --name strapi \
   -e DATABASE_CLIENT=postgres \
   -v /var/lib/strapi:/srv/app/data \
   $IMAGE
+
 

@@ -16,7 +16,7 @@
     │
     ├── .github/
     │   └── workflows/
-    │       ├── ci.yml          # CI: Build & push Docker image
+    │       ├── ci.yml          # CI: Build & push Docker image workflow
     │       └── terraform.yml   # CD: Manual Terraform apply
     │
     └── terraform/              # All Terraform code

@@ -5,7 +5,7 @@ on:
     inputs:
     
       image_repo:
-        description: '301782007642.dkr.ecr.eu-north-1.amazonaws.com/strapi'
+        description: '339713165486.dkr.ecr.us-east-2.amazonaws.com/strapi'
         required: true
         default: 'docker-strapi-repo/strapi'
         
@@ -13,6 +13,7 @@ on:
         description: 'Image tag to deploy'
         required: true
         default: 'latest'
+        
       auto_approve:
         description: 'Auto approve terraform apply?'
         required: true
@@ -52,8 +53,9 @@ jobs:
           run: |
           echo "Manual approval mode"
           terraform -chdir=terraform apply -input=false \
-            -var="image_repo=${{ steps.img.outputs.repo }}" \
-            -var="image_tag=${{ steps.img.outputs.tag }}"
+            -var="image_repo=${{ needs.ci.outputs.image_repo }}" \
+            -var="image_tag=${{ needs.ci.outputs.image_tag }}"
+
 
 
 

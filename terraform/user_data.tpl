@@ -46,7 +46,7 @@ docker login --username AWS --password-stdin ${image_repo}
 # Stop old container if exists
 docker rm -f strapi || true
 docker pull postgres:15
-docker pull ${image_uri}:${image_tag}
+docker pull ${image_repo}:${image_tag}
 
 docker run -d \
   --name strapi-postgres \
@@ -71,7 +71,8 @@ sudo docker run -d \
   -e API_TOKEN_SALT=mySalt \
   -e ADMIN_JWT_SECRET=myAdminJWT \
   -e JWT_SECRET=myJWT \
-  ${image_uri}:${image_tag}
+  ${image_repo}:${image_tag}
+
 
 
 

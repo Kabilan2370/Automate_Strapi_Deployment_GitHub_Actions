@@ -27,6 +27,10 @@ echo \
 apt-get update
 apt-get install -y docker-ce docker-ce-cli containerd.io
 
+systemctl start docker
+systemctl enable docker
+
+
 # Allow docker for ubuntu user
 usermod -aG docker ubuntu
 
@@ -38,7 +42,7 @@ sudo ./aws/install
 aws ecr get-login-password --region ${aws_region} | \
 docker login --username AWS --password-stdin ${image_repo}
 
-cat <<EOF > /home/ec2-user/.env
+cat <<EOF > /home/ubuntu/.env
 NODE_ENV=production
 ADMIN_JWT_SECRET=admin123
 JWT_SECRET=jwt123
@@ -53,8 +57,9 @@ docker run -d --name strapi \
   -e NODE_ENV=production \
   -e DATABASE_CLIENT=postgres \
   -v /var/lib/strapi:/srv/app/data \
-  --env-file /home/ec2-user/.env \
+  --env-file /home/ubuntu/.env \
   ${image_repo}:${image_tag}
+
 
 
 

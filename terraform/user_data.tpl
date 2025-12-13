@@ -38,6 +38,13 @@ sudo ./aws/install
 aws ecr get-login-password --region ${aws_region} | \
 docker login --username AWS --password-stdin ${image_repo}
 
+cat <<EOF > /home/ec2-user/.env
+NODE_ENV=production
+ADMIN_JWT_SECRET=admin123
+JWT_SECRET=jwt123
+APP_KEYS=VPXRhnkNBdN0vJ1ij4vwmJEF/ZA/HXvOxT5Xcd/IQjc=,gn7T/0z8mUXPIyUR/eg56ScOmdP3wly+kUz6MvE22Xc=,iuFsOmJiIIJptaGrv7w45BOEUDTLk73eMcBd6dVM+bE=,pf62g1k+rigKtemW1mRXVI6P1Bt9nze95ZNDf24ns2E=
+EOF
+
 # Stop old container if exists
 docker rm -f strapi || true
 
@@ -46,7 +53,9 @@ docker run -d --name strapi \
   -e NODE_ENV=production \
   -e DATABASE_CLIENT=postgres \
   -v /var/lib/strapi:/srv/app/data \
+  --env-file /home/ec2-user/.env \
   ${image_repo}:${image_tag}
+
 
 
 

@@ -54,17 +54,8 @@ jobs:
           echo "IMAGE_REPO: ${{ steps.build-and-push.outputs.IMAGE_REPO }}"
           echo "IMAGE_TAG:  ${{ steps.set-tag.outputs.IMAGE_TAG }}"
 
-      - name: Trigger Terraform CD workflow
-        uses: benc-uk/workflow-dispatch@v1
-        with:
-          workflow: "CD - Terraform (manual)"
-          token: ${{ secrets.TOKEN_GITHUB }}
-          inputs: |
-            {
-              "image_repo": "${{ steps.push-image.outputs.IMAGE_REPO }}",
-              "image_tag": "${{ steps.push-image.outputs.IMAGE_TAG }}",
-              "auto_approve": "true"
-            }
+
+
 
 
 

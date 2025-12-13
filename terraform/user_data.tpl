@@ -8,6 +8,15 @@ sudo swapon /swapfile
 # Make swap permanent
 echo '/swapfile none swap sw 0 0' | sudo tee -a /etc/fstab
 
+apt-get update -y
+apt-get install -y \
+  apt-transport-https \
+  ca-certificates \
+  curl \
+  gnupg \
+  lsb-release \
+  unzip
+
 # install docker
 apt-get update
 apt-get install -y apt-transport-https ca-certificates curl gnupg lsb-release
@@ -38,6 +47,7 @@ docker run -d --name strapi \
   -e DATABASE_CLIENT=postgres \
   -v /var/lib/strapi:/srv/app/data \
   ${image_repo}:${image_tag}
+
 
 
 
